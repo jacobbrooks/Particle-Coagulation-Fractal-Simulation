@@ -27,44 +27,31 @@ public class Cluster{
 
 	public void walk(){
 		int direction = r.nextInt(4);
-		if(direction == 0){
-			if(getMinRowIndex() - 1 >= 0){
-				if(canWalk(0)){
-					moveCluster(0);
-				}
-			}
-		}else if(direction == 1){
-			if(getMaxRowIndex() + 1 < f.HEIGHT){
-				if(canWalk(1)){
-					moveCluster(1);
-				}
-			}
-		}else if(direction == 2){
-			if(getMinColIndex() - 1 >= 0){
-				if(canWalk(2)){
-					moveCluster(2);
-				}
-			}
-		}else if(getMaxColIndex() + 1 < f.WIDTH){
-			if(canWalk(3)){
-				moveCluster(3);
+		int[] offsets = {getMinRowIndex() - 1, getMaxRowIndex() + 1, getMinColIndex() - 1, getMaxColIndex() + 1};
+		moveCluster(direction, offsets[direction]);
+	}
+
+	private void moveCluster(int direction, int bound){
+		if(bound >= 0 && ((direction < 2 && bound < f.HEIGHT) || (direction >= 2 && bound < f.WIDTH))){
+			if(canWalk(direction)){
+				determineMovement(direction);
 			}
 		}
 	}
 
-	private void moveCluster(int direction){
+	private void determineMovement(int direction){
 		if(direction == 0){
-			doMove(-1, 0);
+			move(-1, 0);
 		}else if(direction == 1){
-			doMove(1, 0);
+			move(1, 0);
 		}else if(direction == 2){
-			doMove(0, -1);
+			move(0, -1);
 		}else{
-			doMove(0, 1);
+			move(0, 1);
 		}
 	}
 
-	private void doMove(int rowOffset, int colOffset){
+	private void move(int rowOffset, int colOffset){
 		for(Particle p: cluster){
 			int row = p.row();
 			int col = p.col();
