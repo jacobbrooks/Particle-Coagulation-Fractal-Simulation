@@ -27,8 +27,8 @@ public class Cluster{
 
 	public void walk(){
 		int direction = r.nextInt(4);
-		int[] offsets = {getMinRowIndex() - 1, getMaxRowIndex() + 1, getMinColIndex() - 1, getMaxColIndex() + 1};
-		moveCluster(direction, offsets[direction]);
+		int[] bounds = {getMinRowIndex() - 1, getMaxRowIndex() + 1, getMinColIndex() - 1, getMaxColIndex() + 1};
+		moveCluster(direction, bounds[direction]);
 	}
 
 	private void moveCluster(int direction, int bound){
